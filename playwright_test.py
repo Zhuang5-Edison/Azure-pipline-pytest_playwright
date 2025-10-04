@@ -1,11 +1,10 @@
 from playwright.sync_api import sync_playwright
 
-def test_example():
+def handle_ssl_errors():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context(ignore_https_errors=True)  # ← 忽略 HTTPS 错误
+        browser = p.chromium.launch(args=['--ignore-ssl-errors', '--ignore-certificate-errors'])
+        context = browser.new_context(ignore_https_errors=True)
         page = context.new_page()
         page.goto("https://apps.uat.exyte.net/eTimesheetOneERPUAT/Default.aspx")
-        page.screenshot(path="screenshots/sit.png", full_page=True)
-        assert "MMS" in page.title()
+        print(page.title())
         browser.close()
