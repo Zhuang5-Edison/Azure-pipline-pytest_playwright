@@ -5,7 +5,7 @@ def test_example():
         browser = p.chromium.launch(headless=True)
         context = browser.new_context(ignore_https_errors=True)  # ← 忽略 HTTPS 错误
         page = context.new_page()
-        page.goto("https://sit.mms.exyte.net/")
+        page.goto("https://mms.uat.exyte.net/")
         page.screenshot(path="screenshots/sit.png", full_page=True)
         assert "MMS" in page.title()
         browser.close()
