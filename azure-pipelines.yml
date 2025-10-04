@@ -1,0 +1,27 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: |
+    python -m venv venv
+    source venv/bin/activate
+    pip install pytest playwright
+    playwright install
+    pytest playwright_test.py --junitxml=TEST-playwright.xml
+  displayName: 'Run Playwright tests with Pytest'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Playwright test results'
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'TEST-playwright.xml'
+    failTaskOnFailedTests: true
+
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish Playwright screenshots'
+  inputs:
+    targetPath: 'screenshots'
+    artifact: 'playwright-screenshots'
