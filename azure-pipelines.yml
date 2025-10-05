@@ -6,16 +6,16 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: |
-    echo "10.0.0.12 mms.uat.exyte.net" | sudo tee -a /etc/hosts
-    cat /etc/hosts
-  displayName: 'Add hosts mapping'
-
-- script: |
-    unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy
-    export NO_PROXY="mms.uat.exyte.net,.exyte.net,127.0.0.1,localhost"
-    echo "NO_PROXY=$NO_PROXY"
-  displayName: 'Disable proxy for UAT host'
+#- script: |
+#    echo "10.0.0.12 mms.uat.exyte.net" | sudo tee -a /etc/hosts
+#    cat /etc/hosts
+#  displayName: 'Add hosts mapping'
+#
+#- script: |
+#    unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy
+#    export NO_PROXY="mms.uat.exyte.net,.exyte.net,127.0.0.1,localhost"
+#    echo "NO_PROXY=$NO_PROXY"
+#  displayName: 'Disable proxy for UAT host'
 
 - script: |
     pip install --upgrade pip
