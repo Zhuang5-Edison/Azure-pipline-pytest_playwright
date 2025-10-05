@@ -8,7 +8,8 @@ steps:
 - script: |
     python -m venv venv
     source venv/bin/activate
-    pip install pytest playwright
+    pip install pytest-playwright
+    pip install pytest
     pip install pytest-html
     playwright install
   displayName: 'Install dependencies'
