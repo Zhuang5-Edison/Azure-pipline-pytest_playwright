@@ -5,7 +5,7 @@ def test_example_ignore_ssl():
         browser = p.chromium.launch(headless=True)
         context = browser.new_context()
         page = context.new_page()
-        page.goto("https://mms.uat.exyte.net/TestLoginPage.aspx")
+        page.goto("https://mms.uat.exyte.net/TestLoginPage.aspx",timeout=60_0000)
         page.locator("#txtAccount").click()
         page.locator("#txtAccount").fill("admin")
         page.locator("#txtPwd").click()
