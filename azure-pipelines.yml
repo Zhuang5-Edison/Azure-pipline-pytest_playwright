@@ -12,6 +12,12 @@ steps:
   displayName: 'Add hosts mapping'
 
 - script: |
+    unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy
+    export NO_PROXY="mms.uat.exyte.net,.exyte.net,127.0.0.1,localhost"
+    echo "NO_PROXY=$NO_PROXY"
+  displayName: 'Disable proxy for UAT host'
+
+- script: |
     pip install --upgrade pip
     pip install pytest playwright pytest-playwright pytest-html
     playwright install --with-deps
