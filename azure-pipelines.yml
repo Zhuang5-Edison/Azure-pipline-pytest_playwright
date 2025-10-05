@@ -6,15 +6,16 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '3.12'
-    addToPath: true
+- script: |
+    echo "10.0.0.12 https://mms.uat.exyte.net" | sudo tee -a /etc/hosts
+    cat /etc/hosts
+  displayName: 'Add hosts mapping'
 
 - script: |
     pip install --upgrade pip
     pip install pytest playwright pytest-playwright pytest-html
     playwright install --with-deps
+    pytest --base-url https://mms.uat.exyte.net
   displayName: 'Install dependencies and Playwright browsers'
 
 - script: |
