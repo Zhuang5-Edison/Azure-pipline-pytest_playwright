@@ -20,8 +20,4 @@ steps:
     testResultsFiles: 'TEST-playwright.xml'
     failTaskOnFailedTests: true
 
-- task: PublishPipelineArtifact@1
-  displayName: 'Publish Playwright screenshots'
-  inputs:
-    targetPath: 'screenshots'
-    artifact: 'playwright-screenshots'
+
