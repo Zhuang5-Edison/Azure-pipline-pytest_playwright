@@ -5,6 +5,6 @@ def test_example_ignore_ssl():
         browser = p.chromium.launch(headless=True)
         context = browser.new_context()
         page = context.new_page()
-        page.goto("https://mms.uat.exyte.net/HomePage.aspx",timeout=0)
+        page.goto("https://mms.uat.exyte.net/")
         assert "OneERP UAT" in page.title()
         browser.close()
