@@ -9,6 +9,7 @@ steps:
     python -m venv venv
     source venv/bin/activate
     pip install pytest-playwright
+    pip install pytest-asyncio
     playwright install
     pytest test_example_ignore_ssl.py --junitxml=TEST-playwright.xml
   displayName: 'Run Playwright tests with Pytest'
