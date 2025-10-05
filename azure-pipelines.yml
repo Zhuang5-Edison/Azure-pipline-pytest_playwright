@@ -17,7 +17,7 @@ steps:
   displayName: 'Create reports directory'
 
 - script: |
-    pytest test_example_ignore_ssl.py --html=reports/report.html --self-contained-html
+    python test_example_ignore_ssl.py --html=reports/report.html --self-contained-html
   displayName: 'Run tests and generate HTML report'
 
 - task: PublishPipelineArtifact@1
