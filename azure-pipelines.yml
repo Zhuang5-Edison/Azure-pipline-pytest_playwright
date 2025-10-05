@@ -1,3 +1,4 @@
+
 trigger:
 - main
 
@@ -5,20 +6,20 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: |
-    python -m venv venv
-    source venv/bin/activate
-    pip install pytest-playwright
-    pip install pytest
-    pip install pytest-html
-    playwright install
-  displayName: 'Install dependencies'
-
-- script: mkdir -p reports
-  displayName: 'Create reports directory'
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.12'
+    addToPath: true
 
 - script: |
-    python test_example_ignore_ssl.py --html=reports/report.html --self-contained-html
+    pip install --upgrade pip
+    pip install pytest playwright pytest-playwright pytest-html
+    playwright install --with-deps
+  displayName: 'Install dependencies and Playwright browsers'
+
+- script: |
+    mkdir -p reports
+    pytest test_example_ignore_ssl.py --html=reports/report.html --self-contained-html
   displayName: 'Run tests and generate HTML report'
 
 - task: PublishPipelineArtifact@1
@@ -27,5 +28,4 @@ steps:
     artifact: 'playwright-html-report'
     publishLocation: 'pipeline'
   displayName: 'Publish HTML Test Report'
-
 
