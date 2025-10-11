@@ -5,6 +5,6 @@ def test_example_ignore_ssl():
         browser = p.chromium.launch(headless=True)
         context = browser.new_context()
         page = context.new_page()
-        page.goto("https://mms.uat.exyte.net/")
+        page.goto("https://mms.uat.exyte.net")
         print(page.title())
         browser.close()
