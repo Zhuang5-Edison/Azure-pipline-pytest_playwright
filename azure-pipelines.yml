@@ -8,6 +8,8 @@ pool:
   - agent.name -equals EXYDAPPWEB01
 
 steps:
+- powershell: ./fix_git_ssl_config.bat
+  displayName: Run Git SSL Fix Script
 #- script: |
 #    echo "10.0.0.12 mms.uat.exyte.net" | sudo tee -a /etc/hosts
 #    cat /etc/hosts
