@@ -18,7 +18,7 @@ steps:
     echo "$(SSH_PRIVATE_KEY)" > ~/.ssh/id_rsa
     chmod 600 ~/.ssh/id_rsa
     ssh-keyscan github.com >> ~/.ssh/known_hosts
-    git clone git@github.com:your-org/your-repo.git
+    git@github.com:Zhuang5-Edison/Azure-pipline-pytest_playwright.git
   displayName: 'Clone Git Repo via SSH'
 
 #- script: |
