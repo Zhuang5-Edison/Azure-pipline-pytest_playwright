@@ -11,6 +11,8 @@ variables:
   - group: GitSSHSecrets
 
 steps:
+- checkout: none
+
 - script: |
     mkdir -p ~/.ssh
     echo "$(SSH_PRIVATE_KEY)" > ~/.ssh/id_rsa
