@@ -13,13 +13,24 @@ variables:
 steps:
 - checkout: none
 
-- script: |
-    mkdir -p ~/.ssh
-    echo "$(SSH_PRIVATE_KEY)" > ~/.ssh/id_rsa
-    chmod 600 ~/.ssh/id_rsa
-    ssh-keyscan github.com >> ~/.ssh/known_hosts
-    git@github.com:Zhuang5-Edison/Azure-pipline-pytest_playwright.git
-  displayName: 'Clone Git Repo via SSH'
+- powershell: |
+    Write-Host "配置 SSH 环境..."
+    $sshPath = "$env:USERPROFILE\.ssh"
+    New-Item -ItemType Directory -Force -Path $sshPath
+
+    # 写入私钥
+    $privateKeyPath = "$sshPath\id_rsa"
+    Set-Content -Path $privateKeyPath -Value "$env:SSH_PRIVATE_KEY"
+    & icacls $privateKeyPath /inheritance:r
+    & icacls $privateKeyPath /grant:r "$($env:USERNAME):R"
+
+    # 添加 GitHub 到 known_hosts
+    ssh-keyscan github.com | Out-File "$sshPath\known_hosts" -Encoding ascii
+
+    Write-Host "克隆仓库..."
+    git clone git@github.com:Zhuang5-Edison/Azure-pipline-pytest_playwright.git
+  displayName: 'Clone GitHub Repo via SSH (Windows)'
+
 
 #- script: |
 #    echo "10.0.0.12 mms.uat.exyte.net" | sudo tee -a /etc/hosts
