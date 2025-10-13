@@ -23,24 +23,17 @@ steps:
     $privateKey = $env:SSH_PRIVATE_KEY -replace "`r`n", "`n"
     Set-Content -Path $privateKeyPath -Value $privateKey -Encoding ascii
 
-    # 设置权限（确保 ADM_ZHuang 用户可以访问）
     icacls $privateKeyPath /inheritance:r
     icacls $privateKeyPath /grant:r "ADM_ZHuang:R"
     icacls $privateKeyPath /grant:r "ADM_ZHuang:W"
     icacls $privateKeyPath /grant:r "ADM_ZHuang:RX"
 
-    # 添加 Git 服务器到 known_hosts
-    ssh-keyscan github.com >> "$sshDir\known_hosts"
-
-    # 设置 Git 使用该 SSH 密钥
-    $env:GIT_SSH_COMMAND = "ssh -i $privateKeyPath -o StrictHostKeyChecking=no"
+    # 设置 Git 使用该 SSH 密钥并跳过 host 检查
+    $env:GIT_SSH_COMMAND = "ssh -i `"$privateKeyPath`" -o StrictHostKeyChecking=no"
 
     # 克隆仓库
-    git@github.com:Zhuang5-Edison/Azure-pipline-pytest_playwright.git
+    git clone git@github.com:Zhuang5-Edison/Azure-pipline-pytest_playwright.git
   displayName: 'Configure SSH and Clone Repo'
-
-
-
 
 #- script: |
 #    echo "10.0.0.12 mms.uat.exyte.net" | sudo tee -a /etc/hosts
