@@ -20,16 +20,22 @@ steps:
     }
 
     $privateKeyPath = "$sshDir\id_rsa"
-    Set-Content -Path $privateKeyPath -Value "$env:SSH_PRIVATE_KEY"
+
+    # 写入 SSH 私钥
+    $privateKey = $env:SSH_PRIVATE_KEY -replace "`r`n", "`n"
+    Set-Content -Path $privateKeyPath -Value $privateKey -Encoding ascii
     icacls $privateKeyPath /inheritance:r
     icacls $privateKeyPath /grant:r "$env:USERNAME:R"
     icacls $privateKeyPath /grant:r "$env:USERNAME:W"
     icacls $privateKeyPath /grant:r "$env:USERNAME:RX"
 
+    # 添加 Git 服务器到 known_hosts
     ssh-keyscan github.com >> "$sshDir\known_hosts"
 
+    # 克隆仓库
     git@github.com:Zhuang5-Edison/Azure-pipline-pytest_playwright.git
   displayName: 'Clone Git Repo via SSH'
+
 
 
 #- script: |
