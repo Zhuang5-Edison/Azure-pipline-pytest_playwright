@@ -7,7 +7,18 @@ pool:
   demands:
   - agent.name -equals EXYDAPPWEB01
 
+variables:
+  - group: GitSSHSecrets
+
 steps:
+- script: |
+    mkdir -p ~/.ssh
+    echo "$(SSH_PRIVATE_KEY)" > ~/.ssh/id_rsa
+    chmod 600 ~/.ssh/id_rsa
+    ssh-keyscan github.com >> ~/.ssh/known_hosts
+    git clone git@github.com:your-org/your-repo.git
+  displayName: 'Clone Git Repo via SSH'
+
 #- script: |
 #    echo "10.0.0.12 mms.uat.exyte.net" | sudo tee -a /etc/hosts
 #    cat /etc/hosts
