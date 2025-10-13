@@ -11,9 +11,15 @@ steps:
 - checkout: none
 
 - powershell: |
-    $env:GIT_SSH_COMMAND = "ssh -i C:\\Users\\ADM_ZHuang\\.ssh\\id_ed25519 -o StrictHostKeyChecking=no"
+    # 启动 ssh-agent
+    Start-Process ssh-agent -NoNewWindow
+    Start-Sleep -Seconds 2
+
+    # 添加 SSH 密钥
+    ssh-add "C:\Users\ADM_ZHuang\.ssh\id_ed25519"
+
+    # 克隆仓库
     git clone git@github.com:Zhuang5-Edison/Azure-pipline-pytest_playwright.git
-  displayName: 'Clone Git Repo with Local SSH Key'
 
 #- script: |
 #    echo "10.0.0.12 mms.uat.exyte.net" | sudo tee -a /etc/hosts
