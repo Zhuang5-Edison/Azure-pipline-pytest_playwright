@@ -3,9 +3,7 @@ trigger:
 - main
 
 pool:
-  name: 'Default'
-  demands:
-  - agent.name -equals EXYDAPPWEB01
+  vmImage: ubuntu-latest
 
 variables:
   - group: GitSSHSecrets
@@ -14,7 +12,7 @@ steps:
 - checkout: none
 
 - powershell: |
-    $sshDir = "C:\Users\ADM_ZHuang\.ssh"
+    $sshDir = "C:\Users\zhuang5\.ssh"
     if (!(Test-Path -Path $sshDir)) {
         New-Item -ItemType Directory -Path $sshDir | Out-Null
     }
@@ -24,9 +22,9 @@ steps:
     Set-Content -Path $privateKeyPath -Value $privateKey -Encoding ascii
 
     icacls $privateKeyPath /inheritance:r
-    icacls $privateKeyPath /grant:r "ADM_ZHuang:R"
-    icacls $privateKeyPath /grant:r "ADM_ZHuang:W"
-    icacls $privateKeyPath /grant:r "ADM_ZHuang:RX"
+    icacls $privateKeyPath /grant:r "zhuang5:R"
+    icacls $privateKeyPath /grant:r "zhuang5:W"
+    icacls $privateKeyPath /grant:r "zhuang5:RX"
 
     # 设置 Git 使用该 SSH 密钥并跳过 host 检查
     $env:GIT_SSH_COMMAND = "ssh -i `"$privateKeyPath`" -o StrictHostKeyChecking=no"
