@@ -29,7 +29,7 @@ steps:
     icacls $privateKeyPath /grant:r "ADM_ZHuang:RX"
 
     # 设置 Git 使用该 SSH 密钥并跳过 host 检查
-    $env:GIT_SSH_COMMAND = "ssh -i `"$privateKeyPath`" -o StrictHostKeyChecking=yes"
+    $env:GIT_SSH_COMMAND = "ssh -i `"$privateKeyPath`" -o StrictHostKeyChecking=no"
 
     # 克隆仓库
     git clone git@github.com:Zhuang5-Edison/Azure-pipline-pytest_playwright.git
