@@ -8,6 +8,8 @@ pool:
   - agent.name -equals EXYDAPPWEB01
 
 steps:
+- checkout: none
+
 - powershell: |
     $env:GIT_SSH_COMMAND = 'ssh -i "C://Users//ADM_ZHuang//.ssh//id_ed25519" -o StrictHostKeyChecking=no'
     git clone git@github.com:Zhuang5-Edison/Azure-pipline-pytest_playwright.git
