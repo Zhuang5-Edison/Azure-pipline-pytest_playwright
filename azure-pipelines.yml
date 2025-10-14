@@ -9,19 +9,9 @@ pool:
 
 steps:
 - powershell: |
-    # 启动 ssh-agent 服务（如果未运行）
-    $service = Get-Service -Name ssh-agent
-    if ($service.Status -ne 'Running') {
-        Start-Service ssh-agent
-    }
-
-    # 添加 SSH 密钥
-    ssh-add "C:\Users\ADM_ZHuang\.ssh\id_ed25519"
-
-    # 克隆仓库
+    $env:GIT_SSH_COMMAND = 'ssh -i "C:/Users/ADM_ZHuang/.ssh/id_ed25519" -o StrictHostKeyChecking=no'
     git clone git@github.com:Zhuang5-Edison/Azure-pipline-pytest_playwright.git
-  displayName: 'Start SSH Agent and Clone Repo'
-
+  displayName: 'Clone Git Repo with GIT_SSH_COMMAND'
 
 #- script: |
 #    echo "10.0.0.12 mms.uat.exyte.net" | sudo tee -a /etc/hosts
